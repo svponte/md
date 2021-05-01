@@ -1,6 +1,6 @@
 import pandas as pd
 
-def carrega(arquivo):
+def doCarga(arquivo):
     # Carrega dataframe
     pfEnade = pd.read_csv(arquivo, sep = ';', low_memory=False)
     # Remover colunas excedentes 
@@ -14,7 +14,7 @@ def carrega(arquivo):
     del pfEnade['NU_ANO'] #	1 - N - 4 - Ano de realização do exame	
     del pfEnade['CO_IES'] #	2 - N - 5 - Código da IES (e-MEC)	
     # del pfEnade['CO_CATEGAD'] #	3 - N - 5 - Código da categoria administrativa da IES	
-    # del pfEnade['CO_ORGACAD'] #	4 - N - 5 - Código da organização acadêmica da IES	
+    del pfEnade['CO_ORGACAD'] #	4 - N - 5 - Código da organização acadêmica da IES	
     # del pfEnade['CO_GRUPO'] #	5 - N - 4 - Código da Área de enquadramento do curso no Enade	
     # del pfEnade['CO_CURSO'] #	6 - N - 7 - Código do curso no Enade	
     del pfEnade['CO_MODALIDADE'] #	7 - N - 1 - Código da Modalidade de Ensino	
@@ -161,7 +161,27 @@ def carrega(arquivo):
     pfEnade = pfEnade.query('ANO_IN_GRAD < 2020')
     pfEnade = pfEnade.query('ANO_IN_GRAD > ANO_FIM_EM')
     pfEnade["Tempo"] = pfEnade["ANO_IN_GRAD"] - pfEnade["ANO_FIM_EM"]
-    # Qual o nome das variáveis (colunas)
     
+    # CO_CATEGAD - Categorizar Pública e Privada
+    pfEnade.loc[pfEnade['CO_CATEGAD'] == 118, 'CO_CATEGAD'] = 1     # 118 = Pessoa Jurídica de Direito Privado - Com fins lucrativos - Sociedade Civil
+    pfEnade.loc[pfEnade['CO_CATEGAD'] == 120, 'CO_CATEGAD'] = 1     # 120 = Pessoa Jurídica de Direito Privado - Sem fins lucrativos - Associação de Utilidade Pública
+    pfEnade.loc[pfEnade['CO_CATEGAD'] == 121, 'CO_CATEGAD'] = 1     # 121 = Pessoa Jurídica de Direito Privado - Sem fins lucrativos - Fundação
+    pfEnade.loc[pfEnade['CO_CATEGAD'] == 10005, 'CO_CATEGAD'] = 1   # 10005 = Privada com fins lucrativos
+    pfEnade.loc[pfEnade['CO_CATEGAD'] == 10006, 'CO_CATEGAD'] = 1   # 10006 = Pessoa Jurídica de Direito Privado - Com fins lucrativos - Sociedade Mercantil ou Comercial
+    pfEnade.loc[pfEnade['CO_CATEGAD'] == 10007, 'CO_CATEGAD'] = 1   # 10007 = Pessoa Jurídica de Direito Privado - Sem fins lucrativos - Associação de Utilidade Pública
+    pfEnade.loc[pfEnade['CO_CATEGAD'] == 10008, 'CO_CATEGAD'] = 1   # 10008 = Privada sem fins lucrativos
+    pfEnade.loc[pfEnade['CO_CATEGAD'] == 10009, 'CO_CATEGAD'] = 1   # 10009 = Pessoa Jurídica de Direito Privado - Sem fins lucrativos - Sociedade
+    pfEnade.loc[pfEnade['CO_CATEGAD'] == 17634, 'CO_CATEGAD'] = 0   # 17634 = Fundação Pública de Direito Privado Municipal
+    pfEnade.loc[pfEnade['CO_CATEGAD'] == 93, 'CO_CATEGAD'] = 0      # 93 = Pessoa Jurídica de Direito Público - Federal
+    pfEnade.loc[pfEnade['CO_CATEGAD'] == 115, 'CO_CATEGAD'] = 0     # 115 = Pessoa Jurídica de Direito Público - Estadual
+    pfEnade.loc[pfEnade['CO_CATEGAD'] == 116, 'CO_CATEGAD'] = 0     # 116 = Pessoa Jurídica de Direito Público - Municipal
+    pfEnade.loc[pfEnade['CO_CATEGAD'] == 10001, 'CO_CATEGAD'] = 0   # 10001 = Pessoa Jurídica de Direito Público - Estadual
+    pfEnade.loc[pfEnade['CO_CATEGAD'] == 10002, 'CO_CATEGAD'] = 0   # 10002 = Pessoa Jurídica de Direito Público - Federal
+    pfEnade.loc[pfEnade['CO_CATEGAD'] == 10003, 'CO_CATEGAD'] = 0   # 10003 = Pessoa Jurídica de Direito Público - Municipal
+    
+    #12 = MEDICINA
 
+    
+    
+    
     return pfEnade
