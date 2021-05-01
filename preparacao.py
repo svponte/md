@@ -179,9 +179,8 @@ def doCarga(arquivo):
     pfEnade.loc[pfEnade['CO_CATEGAD'] == 10002, 'CO_CATEGAD'] = 0   # 10002 = Pessoa Jurídica de Direito Público - Federal
     pfEnade.loc[pfEnade['CO_CATEGAD'] == 10003, 'CO_CATEGAD'] = 0   # 10003 = Pessoa Jurídica de Direito Público - Municipal
     
-    #12 = MEDICINA
-
-    
-    
+    # 12 = MEDICINA / # 5710 = ENGENHARIA CIVIL
+    pfEnade = pfEnade.query('CO_GRUPO == 12 or CO_GRUPO == 5710')
+    # pfEnade = pfEnade[pfEnade['CO_CATEGAD'].isin([12, 5710])]
     
     return pfEnade
