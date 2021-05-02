@@ -87,7 +87,7 @@ def doCarga(arquivo):
     del pfEnade['QE_I05'] #	74 - C - 1 - Até que etapa de escolarização sua mãe concluiu?	
     del pfEnade['QE_I06'] #	75 - C - 1 - Onde e com quem você mora atualmente?	
     del pfEnade['QE_I07'] #	76 - C - 1 - Quantas pessoas da sua família moram com você? Considere seus pais, irmãos, cônjuge, filhos e outros parentes que moram na mesma casa com você.	
-    del pfEnade['QE_I08'] #	77 - C - 1 - Qual a renda total de sua família, incluindo seus rendimentos?	
+    # del pfEnade['QE_I08'] #	77 - C - 1 - Qual a renda total de sua família, incluindo seus rendimentos?	
     del pfEnade['QE_I09'] #	78 - C - 1 - Qual alternativa a seguir melhor descreve sua situação financeira (incluindo bolsas)?	
     del pfEnade['QE_I10'] #	79 - C - 1 - Qual alternativa a seguir melhor descreve sua situação de trabalho (exceto estágio ou bolsas)?	
     del pfEnade['QE_I11'] #	80 - C - 1 - Que tipo de bolsa de estudos ou financiamento do curso você recebeu para custear todas ou a maior parte das mensalidades? No caso de haver mais de uma opção, marcar apenas a bolsa de maior duração.	
@@ -180,7 +180,7 @@ def doCarga(arquivo):
     pfEnade.loc[pfEnade['CO_CATEGAD'] == 10003, 'CO_CATEGAD'] = 0   # 10003 = Pessoa Jurídica de Direito Público - Municipal
     
     # 12 = MEDICINA / # 5710 = ENGENHARIA CIVIL
-    pfEnade = pfEnade.query('CO_GRUPO == 12 or CO_GRUPO == 5710')
+    # pfEnade = pfEnade.query('CO_GRUPO == 12 or CO_GRUPO == 5710')
     # pfEnade = pfEnade[pfEnade['CO_CATEGAD'].isin([12, 5710])]
     
     return pfEnade
