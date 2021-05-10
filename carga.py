@@ -5,8 +5,7 @@ pd.options.mode.chained_assignment = None  # default='warn'
 def doCarga(arquivo):
     # Carrega dataframe
     cols = ['CO_CATEGAD', 'CO_GRUPO', 'TP_SEXO', 'ANO_FIM_EM', 'ANO_IN_GRAD', 'QE_I08', 'QE_I16', 'QE_I17', 'QE_I04', 'QE_I05', 'CO_UF_CURSO']
-    pfEnade = pd.read_csv(arquivo, usecols=cols, sep = ';', low_memory=False, 
-    dtype={'CO_GRUPO':'category', 'TP_SEXO':'category', 'QE_I08':'category', 'QE_I16':'category', 'QE_I17':'category', 'QE_I04':'category', 'QE_I05':'category', 'CO_UF_CURSO':'category'})
+    pfEnade = pd.read_csv(arquivo, usecols=cols, sep = ';', low_memory=False, dtype={'CO_GRUPO':'category', 'TP_SEXO':'category', 'QE_I08':'category', 'QE_I16':'category','QE_I17':'category','QE_I04':'category', 'QE_I05':'category','CO_UF_CURSO':'category'})
     
     # pfEnade = pd.read_csv(arquivo, sep = ';', low_memory=False)
     
@@ -152,7 +151,5 @@ def doCarga(arquivo):
     # del pfEnade['QE_I66'] #	135 - N - 1 - As atividades acadêmicas desenvolvidas dentro e fora da sala de aula possibilitaram reflexão, convivência e respeito à diversidade.	
     # del pfEnade['QE_I67'] #	136 - N - 1 - A instituição promoveu atividades de cultura, de lazer e interação social.	
     # del pfEnade['QE_I68'] #	137 - N - 1 - A instituição dispôs de refeitório, cantina e banheiros em condições adequadas que atenderam as necessidades dos seus usuários.	
-    
-    
     
     return pfEnade
