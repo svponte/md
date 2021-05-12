@@ -16,6 +16,11 @@ def doIdade (pfEnade):
     del pfEnade['ANO_IN_GRAD']
     return pfEnade
 
+def doRenda(pfEnade):
+    # Há 6 registros na base que, cujas rendas não estão apresentadas
+    pfEnade = pfEnade.query('QE_I08 != " "')
+    return pfEnade
+
 def doVazios(pfEnade):
     # TRATAR - Valores ausentes
     pfEnade.dropna(inplace=True)
@@ -88,7 +93,14 @@ def doHumanasExatas(pfEnade):
     #pfEnade['CO_GRUPO'].value_counts()
     return pfEnade
 
-
+def doNota(pfEnade):
+    # Mostra percetual de notas vazias
+    pfEnade['NT_GER'].isnull().mean()
+    # 10% das notas estão com valor vazio
+    # Assumimos que, quem não tem nota, então a nota é zero
+    pfEnade['NT_GER'].fillna(0, inplace=True)
+    pfEnade['NT_GER'].isnull().mean()
+    return pfEnade
 
 def doMigracao(pfEnade):
     #TRATAR - Se foi migrado ou não
@@ -97,4 +109,6 @@ def doMigracao(pfEnade):
     # QE_I16 - UF do Ensino Médio
     pfEnade.loc[pfEnade['CO_UF_CURSO'] != pfEnade['QE_I16'], 'Migrado'] = 1  
     return pfEnade
+
+
 

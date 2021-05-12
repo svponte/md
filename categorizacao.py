@@ -2,7 +2,11 @@ def doRenda(pfEnade):
     # TRATAR - RENDA - Categóricos
     pfEnade['Renda'] = pfEnade['QE_I08'].cat.codes  # Cria um grupo numérico a partir do categórica
     # del pfEnade['QE_I08']
+    dicRenda = doRendaDIC()
+    pfEnade['RendaDIC'] = [dicRenda[x] for x in pfEnade.QE_I08]
+    return pfEnade
 
+def doRendaDIC():
     # DICIONÁRIO - Renda
     dicRenda = {'A' : 'Até 1,5 salário mínimo (até R$ 1.431,00)',
     'B' : 'De 1,5 a 3 salários mínimos (R$ 1.431,01 a R$ 2.862,00)',
@@ -11,10 +15,8 @@ def doRenda(pfEnade):
     'E' : 'De 6 a 10 salários mínimos (R$ 5.724,01 a R$ 9.540,00)',
     'F' : 'De 10 a 30 salários mínimos (R$ 9.540,01 a R$ 28.620,00)',
     'G' : 'Acima de 30 salários mínimos (mais de R$ 28.620,00)',
-    ' ' : '?'} 
-    pfEnade['RendaDesc'] = [dicRenda[x] for x in pfEnade.QE_I08]
-    return pfEnade
-
+    ' ' : 'Não Informado'} 
+    return dicRenda
 
 def doEscolaridade(pfEnade):
     # TRATAR - ESCOLARIDADe dos pais - Categóricos
@@ -27,7 +29,22 @@ def doEscolaridade(pfEnade):
     'D' : 'Ensino Médio',
     'E' : 'Ensino Superior - Graduação',
     'F' : 'Pós-graduação',
-    ' ' : '?'}
+    ' ' : 'Não Informado'}
 
     pfEnade['EscolaridadeDesc'] = [dicEscolaridade[x] for x in pfEnade.QE_I04]
     return pfEnade
+
+
+def mapear_coluna(df, data_dict, coluna):
+    tmp = data_dict.query("NOME == @coluna")['CATEGORIAS'].str.split('=', expand=True).dropna()
+    if tmp.shape[0] <= 1: #work-around for NU_IDADE
+        return {i:i for i in sorted(df[coluna].unique())}
+        
+    tmp.iloc[:, 0] = tmp.iloc[:, 0].str.strip().astype(df[coluna].dtype)
+    tmp.iloc[:, 1] = tmp.iloc[:, 1].str.strip().str.upper()
+    return tmp.set_index(0).iloc[:,0].to_dict()
+    
+
+
+   # mapa_pg = pd.read_excel(path + 'dicionario_completo_2018.xlsx', 
+   #                     header=[1])[['NOME', 'DESCRIÇÃO']].dropna().set_index('NOME').to_dict()['DESCRIÇÃO']
