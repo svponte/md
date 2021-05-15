@@ -95,7 +95,7 @@ def doHumanasExatas(pfEnade):
 
 def doNota(pfEnade):
     # Mostra percetual de notas vazias
-    pfEnade['NT_GER'].isnull().mean()
+    # pfEnade['NT_GER'].isnull().mean()
     # 10% das notas estão com valor vazio
     # Assumimos que, quem não tem nota, então a nota é zero
     pfEnade['NT_GER'].fillna(0, inplace=True)

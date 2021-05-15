@@ -40,7 +40,8 @@ def doRendaDIC():
     'E' : 'De 6 a 10 salários mínimos (R$ 5.724,01 a R$ 9.540,00)',
     'F' : 'De 10 a 30 salários mínimos (R$ 9.540,01 a R$ 28.620,00)',
     'G' : 'Acima de 30 salários mínimos (mais de R$ 28.620,00)',
-    ' ' : 'Não Informado'} 
+    ' ' : 'Não Informado'
+    } 
     return dicRenda
 
 def doHEstudoDIC():
@@ -57,3 +58,8 @@ def doSexoDIC():
     # DICIONÁRIO - Sexo
     dicSexo = {'M' : 'Masculino', 'F' : 'Feminino'}
     return dicSexo
+
+def doMigradoDIC():
+    # Migrad
+    dicMigrado = {'0' : 'Nativo', '1' : 'Migrante'}
+    return dicMigrado
