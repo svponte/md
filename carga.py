@@ -6,12 +6,12 @@ def doCarga(arquivo):
     # Carrega dataframe
     cols = ['CO_CATEGAD', 'CO_GRUPO', 'TP_SEXO', 'ANO_FIM_EM', 'ANO_IN_GRAD', 
         'QE_I08', 'QE_I16', 'QE_I17', 'QE_I04', 'QE_I05', 'CO_UF_CURSO', 
-        'NT_GER', 'QE_I23']
+        'NT_GER', 'QE_I23', 'QE_I07']
     pfEnade = pd.read_csv(arquivo, usecols=cols, sep = ';', decimal=",", low_memory=False, \
         dtype={'CO_GRUPO':'category', 'TP_SEXO':'category', 'QE_I08':'category', \
             'QE_I16':'category','QE_I17':'category','QE_I04':'category', \
             'QE_I05':'category','CO_UF_CURSO':'category', 
-            'NT_GER':'float', 'QE_I23':'category'})
+            'NT_GER':'float', 'QE_I23':'category', 'QE_I07':'category'})
     pfEnade["Indice"] = pfEnade.index + 1
     
     # Carrega TUDO
