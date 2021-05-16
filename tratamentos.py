@@ -6,11 +6,11 @@ def doIdade (pfEnade):
     # mínimo ano_fim_em 1111
     # máximo ano_in_grad 14
 
-    pfEnade = pfEnade.query('ANO_FIM_EM > 1990')
-    pfEnade = pfEnade.query('ANO_FIM_EM < 2020')
-    pfEnade = pfEnade.query('ANO_IN_GRAD > 2010')
-    pfEnade = pfEnade.query('ANO_IN_GRAD < 2020')
-    pfEnade = pfEnade.query('ANO_IN_GRAD > ANO_FIM_EM')
+    #pfEnade = pfEnade.query('ANO_FIM_EM > 1990')
+    #pfEnade = pfEnade.query('ANO_FIM_EM < 2020')
+    #pfEnade = pfEnade.query('ANO_IN_GRAD > 2010')
+    #pfEnade = pfEnade.query('ANO_IN_GRAD < 2020')
+    #pfEnade = pfEnade.query('ANO_IN_GRAD > ANO_FIM_EM')
     pfEnade["Tempo"] = pfEnade["ANO_IN_GRAD"] - pfEnade["ANO_FIM_EM"]
     del pfEnade['ANO_FIM_EM']
     del pfEnade['ANO_IN_GRAD']
