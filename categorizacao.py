@@ -39,8 +39,8 @@ def doRendaDIC():
     'D' : 'De 4,5 a 6 salários mínimos (R$ 4.293,01 a R$ 5.724,00)',
     'E' : 'De 6 a 10 salários mínimos (R$ 5.724,01 a R$ 9.540,00)',
     'F' : 'De 10 a 30 salários mínimos (R$ 9.540,01 a R$ 28.620,00)',
-    'G' : 'Acima de 30 salários mínimos (mais de R$ 28.620,00)',
-    ' ' : 'Não Informado'
+    'G' : 'Acima de 30 salários mínimos (mais de R$ 28.620,00)'
+    #' ' : 'Não Informado'
     } 
     return dicRenda
 
