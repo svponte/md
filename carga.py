@@ -46,9 +46,38 @@ def doCargaFull(arquivo):
             'QE_I05':'category','CO_UF_CURSO':'category', 
             'NT_GER':'float', 'QE_I23':'category', 'QE_I07':'category'})
     pfEnade["Indice"] = pfEnade.index + 1
+    return pfEnade
     
 
+def doCargaTodos(arquivo):
+    # Carrega dataframe
 
+    pfEnade = pd.read_csv(arquivo, sep = ';', decimal=",", low_memory=False, \
+        dtype={'CO_GRUPO':'category', 'TP_SEXO':'category', 'QE_I08':'category', \
+            'QE_I16':'category','QE_I17':'category','QE_I04':'category', \
+            'QE_I05':'category','CO_UF_CURSO':'category', 
+            'NT_GER':'float', 'QE_I23':'category', 'QE_I07':'category'})
+    pfEnade["Indice"] = pfEnade.index + 1
+
+    # ## NORMALIZAÇÔES
+    pfEnade.dropna(inplace=True)
+    pfEnade = pfEnade.query('ANO_FIM_EM > 2004')
+    pfEnade = pfEnade.query('ANO_FIM_EM < 2020')
+    pfEnade = pfEnade.query('ANO_IN_GRAD > 2010')
+    pfEnade = pfEnade.query('ANO_IN_GRAD < 2020')
+    pfEnade = pfEnade.query('ANO_IN_GRAD > ANO_FIM_EM')
+    
+    dfRemove = pfEnade.loc[(pfEnade['QE_I08'] == ' ')]
+    pfEnade = pfEnade.drop(dfRemove.index)
+    pfEnade['QE_I08'] = pfEnade['QE_I08'].str.strip().astype('category')
+
+    pfEnade = pfEnade.query('NT_GER > 1')
+    pfEnade = pfEnade.query('NT_GER < 87')
+    
+    pfEnade['QE_I23'] = pfEnade['QE_I23'].str.strip().astype('category')  
+    pfEnade = pfEnade.query('QE_I23 != ""')
+    pfEnade['QE_I23'] = pfEnade['QE_I23'].str.strip().astype('category')
+    return pfEnade
 
 
 
@@ -207,4 +236,4 @@ def doCargaFull(arquivo):
     # del pfEnade['QE_I67'] #	136 - N - 1 - A instituição promoveu atividades de cultura, de lazer e interação social.	
     # del pfEnade['QE_I68'] #	137 - N - 1 - A instituição dispôs de refeitório, cantina e banheiros em condições adequadas que atenderam as necessidades dos seus usuários.	
     
-    return pfEnade
+    #return pfEnade
