@@ -81,6 +81,11 @@ def doMigradoDIC():
     dicMigrado = {'0' : 'Nativo', '1' : 'Migrante'}
     return dicMigrado
 
+def doPublicaDIC():
+    # Publica / privada
+    dicPublica = {'0' : 'Public', '1' : 'Private'}
+    return dicPublica
+    
 def doCategoricos(pfEnade):
     # Cria um grupo numérico a partir do categórica
     # pfEnade['QE_I08CAT'] = pfEnade['QE_I08'].sort_values(by=['QE_I08']).cat.codes  # Cria um grupo numérico a partir do categórica
