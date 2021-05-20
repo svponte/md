@@ -32,7 +32,7 @@ def doCarga(arquivo):
     pfEnade['QE_I23'] = pfEnade['QE_I23'].str.strip().astype('category')  
     pfEnade = pfEnade.query('QE_I23 != ""')
     pfEnade['QE_I23'] = pfEnade['QE_I23'].str.strip().astype('category')
-
+    
     return pfEnade
 
 def doCargaFull(arquivo):
