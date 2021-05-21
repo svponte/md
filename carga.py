@@ -1,6 +1,6 @@
 import pandas as pd
+from sklearn.model_selection import train_test_split
 pd.options.mode.chained_assignment = None  # default='warn'
-
 
 def doCarga(arquivo):
     # Carrega dataframe
@@ -48,7 +48,6 @@ def doCargaFull(arquivo):
     pfEnade["Indice"] = pfEnade.index + 1
     return pfEnade
     
-
 def doCargaTodos(arquivo):
     # Carrega dataframe
 
@@ -237,3 +236,25 @@ def doCargaTodos(arquivo):
     # del pfEnade['QE_I68'] #	137 - N - 1 - A instituição dispôs de refeitório, cantina e banheiros em condições adequadas que atenderam as necessidades dos seus usuários.	
     
     #return pfEnade
+
+def doSplit(pfEnade):
+
+    # CONTAR CLASSES
+    count_class_0, count_class_1 = pfEnade['Publica'].value_counts() # pfEnade.target.value_counts()
+    # Divide by class
+    df_class_0 = pfEnade[pfEnade['Publica'] == 1]   # 1 = Privada
+    df_class_1 = pfEnade[pfEnade['Publica'] == 0]   # 0 = Publica
+    df_class_0_under = df_class_0.sample(count_class_1)
+    dfAjustado = pd.concat([df_class_0_under, df_class_1], axis=0)
+    #dfAjustado['Publica'].value_counts() 
+
+    # CARGA - X e y
+    y = pd.DataFrame(dfAjustado, columns = ['Publica'])
+    enade_features = [ 'BomAluno','CO_REGIAO_CURSO', 'Jovem', 'Migrado', 'Solo', 'Exatas', 'QE_I23CAT', 'QE_I08CAT', 'Sustento', 'Sexo'] 
+    # , 'Familia', , 'NU_IDADE' BaixaRenda
+    # , 'Tempo', 'RecemFormado', 'QE_I08CAT', 'Age'
+    # Ou solo ou família
+
+    X = dfAjustado[enade_features]
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+    return X, y, X_train, X_test, y_train, y_test
